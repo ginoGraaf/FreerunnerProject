@@ -13,13 +13,18 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rig;
     [SerializeField]
     BoxCollider boxCollider;
+    [SerializeField]
+    bool inControll;
 
     private float speed=0;
     // Update is called once per frame
     void Update()
     {
-        Movement();
-        JumpMovement();
+        if (inControll)
+        {
+            Movement();
+            JumpMovement();
+        }
     }
 
     private void FixedUpdate()
