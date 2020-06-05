@@ -7,6 +7,7 @@ public class PlayerSimulation : MonoBehaviour
     List<Transform> points = new List<Transform>();
     Transform currentPoint;
     int nextPoint = 0;
+    [SerializeField]
     float playerSpeed = 20;
     float speed = 0;
     // Start is called before the first frame update
@@ -14,9 +15,12 @@ public class PlayerSimulation : MonoBehaviour
     bool Automatic;
     [SerializeField]
     Transform PlayerTransform;
+    [SerializeField]
+    Rigidbody rig;
     void Start()
     {
         points = boardBuilder.instance.path_objs;
+
         currentPoint = points[nextPoint];
     }
 
@@ -45,7 +49,7 @@ public class PlayerSimulation : MonoBehaviour
     }
     void ReachPoint()
     {
-        if(Vector3.Distance(PlayerTransform.position,currentPoint.position)<1.5f)
+        if(Vector3.Distance(PlayerTransform.position,currentPoint.position)<0.1f)
         {
             nextPoint++;
             if (LastPoint())
