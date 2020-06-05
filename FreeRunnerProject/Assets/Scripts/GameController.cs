@@ -4,24 +4,33 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public bool gameActive = false;
+
     public ChaseLight[] ChaseLights;
+
+    [Header("Danger zone")]
     [SerializeField] private int firstDangerPoint = 11;
     [SerializeField] private int dangerZoneLength = 5;
-    float timeLeft = 2.0f;
+
+    [Header("Interval")]
+    [SerializeField] private float startInterval = 3.0f;
+    [SerializeField] private float IntervalFactor = 0.97f;
+    [SerializeField] private float interval;
+    [SerializeField] private float timeLeft;
 
     void Start()
     {
+        Debug.Log("Don't forget to check Game Active in the game controller ;)");
         SetupDangerZone();
+        interval = startInterval;
+        timeLeft = startInterval;
     }
 
     void Update()
     {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft < 0)
+        if (gameActive)
         {
-            MoveDangerZone();
-            Debug.Log("move");
-            timeLeft = 2.0f;
+            Timer();
         }
     }
 
@@ -55,5 +64,17 @@ public class GameController : MonoBehaviour
             firstDangerPoint = 0;
         }
         ChaseLights[firstDangerPoint].SetState(1);
+    }
+
+    private void Timer()
+    {
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 0)
+        {
+            MoveDangerZone();
+            Debug.Log("move");
+            timeLeft = interval;
+            interval = interval * IntervalFactor;
+        }
     }
 }

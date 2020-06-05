@@ -211,7 +211,7 @@ PrefabInstance:
     - target: {fileID: 2933085864213348419, guid: 3bdda821e240b6546ad7197eefaa1dcc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.539
+      value: -5.05
       objectReference: {fileID: 0}
     - target: {fileID: 2933085864213348419, guid: 3bdda821e240b6546ad7197eefaa1dcc,
         type: 3}
@@ -221,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 2933085864213348419, guid: 3bdda821e240b6546ad7197eefaa1dcc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.190444
+      value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 2933085864213348419, guid: 3bdda821e240b6546ad7197eefaa1dcc,
         type: 3}
@@ -3942,6 +3942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f7d85df03059648986e85c8129ed6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameActive: 0
   ChaseLights:
   - {fileID: 1445684203}
   - {fileID: 677115762}
@@ -3960,6 +3961,10 @@ MonoBehaviour:
   - {fileID: 1632341978}
   firstDangerPoint: 8
   dangerZoneLength: 3
+  startSpeed: 3
+  speedFactor: 0.97
+  interval: 0
+  timeLeft: 0
 --- !u!4 &1253830701
 Transform:
   m_ObjectHideFlags: 0
