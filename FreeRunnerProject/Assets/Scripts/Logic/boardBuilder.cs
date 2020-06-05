@@ -23,6 +23,15 @@ public class boardBuilder : MonoBehaviour {
     }
     void Awake()
     {
+        Path_objs.Clear();
+        theArray = GetComponentsInChildren<Transform>();
+        foreach (Transform objTransform in theArray)
+        {
+            if (objTransform != this.transform)
+            {
+                Path_objs.Add(objTransform);
+            }
+        }
         instance = this;
     }
     void OnDrawGizmos()
