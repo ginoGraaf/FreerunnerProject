@@ -28,26 +28,18 @@ public class TimeAndScoreHandler : MonoBehaviour
     private int totalScore = 0;
     private bool start = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if(start)
         {
             time += Time.deltaTime - previousTime;
 
-            var minutes = Mathf.Floor(time / 60); //Divide the guiTime by sixty to get the minutes.
-            var seconds = time % 60;//Use the euclidean division for the seconds.
+            var minutes = Mathf.Floor(time / 60);
+            var seconds = time % 60;
             var fraction = (time * 100) % 100;
 
             score += (int)((minutes + seconds + fraction ) / 10);
 
-            //update the label value
             timerLabel.text = string.Format("{0:00} : {1:00} : {2:000}", minutes, seconds, fraction);
             totalScore = score + bonus;
             scoreLabel.text = totalScore.ToString();
@@ -86,11 +78,9 @@ public class TimeAndScoreHandler : MonoBehaviour
 
     public void enterName()
     {
-        bool scoreAdded = false;
         string inputName = InputField.text;
         if (int.Parse(First.text) == 0 || totalScore > int.Parse(First.text))
         {
-            //addScore();
             int oldScore = int.Parse(First.text);
             string oldName = FirstName.text;
 
@@ -144,7 +134,7 @@ public class TimeAndScoreHandler : MonoBehaviour
             totalScore = oldScore;
             inputName = oldName;
         }
-        //previousTime = Time.deltaTime;
+
         time = 0;
         score = 0;
         bonus = 0;
