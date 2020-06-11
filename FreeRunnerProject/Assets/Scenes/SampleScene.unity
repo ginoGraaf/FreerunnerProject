@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f7d85df03059648986e85c8129ed6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameActive: 1
+  gameActive: 0
   ChaseLights:
   - {fileID: 1938259679}
   - {fileID: 1745590634}
@@ -495,9 +495,10 @@ MonoBehaviour:
   - {fileID: 153848424}
   - {fileID: 44050555}
   - {fileID: 1959486861}
-  firstDangerPoint: 9
-  dangerZoneLength: 5
-  startInterval: 3
+  firstDangerPoint: 1
+  dangerZoneLength: 3
+  blinkZoneLength: 2
+  startInterval: 2
   IntervalFactor: 0.97
   interval: 0
   timeLeft: 5
