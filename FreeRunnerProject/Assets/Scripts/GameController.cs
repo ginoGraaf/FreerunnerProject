@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
             {
                 _lightToAdd += ChaseLights.Length;
             }
-           ChaseLights[_lightToAdd].SetState(1);
+           ChaseLights[_lightToAdd].SetState(ChaseLight.state.DANGER);
         }
     }
 
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
         {
             _lightToRemove += ChaseLights.Length;
         }
-        ChaseLights[_lightToRemove].SetState(2);
+        ChaseLights[_lightToRemove].SetState(ChaseLight.state.ON);
 
         // add next light to dangerzone
         firstDangerPoint++;
@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
         {
             firstDangerPoint = 0;
         }
-        ChaseLights[firstDangerPoint].SetState(1);
+        ChaseLights[firstDangerPoint].SetState(ChaseLight.state.DANGER);
     }
 
     private void Timer()

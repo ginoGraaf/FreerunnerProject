@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ChaseLight : MonoBehaviour
 {
     [SerializeField] private GameObject Lamp;
-    [HideInInspector] public int state;
+    [HideInInspector] public enum state {ON,OFF,DANGER };
+    state lightState = state.OFF;
     private Material lampMaterial;
 
     void Awake()
@@ -13,24 +15,39 @@ public class ChaseLight : MonoBehaviour
         lampMaterial = Lamp.GetComponent<Renderer>().material;
     }
 
-    public void SetState(int _state)
+    public void SetState(state _state)
     {
-        state = _state;
+        lightState = _state;
 
-        switch (state)
+        switch (lightState)
         {
-            case 0: // lamp turned off
+            case state.OFF: // lamp turned off
                 lampMaterial.color = Color.black;
                 break;
-            case 1: // lamp in danger zone
+            case state.DANGER: // lamp in danger zone
                 lampMaterial.color = Color.red;
                 break;
-            case 2: // lamp NOT in danger zone
+            case state.ON: // lamp NOT in danger zone
                 lampMaterial.color = Color.green;
                 break;
             default:
                 Debug.Log("unknown error occured");
                 break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag=="Player")
+        {
+            switch(lightState)
+            {
+                case state.DANGER:
+                    Debug.LogError("EndGame");
+                    //trigger here the timer stop.
+                    Time.timeScale = 0;
+                    break;
+            }
         }
     }
 }
