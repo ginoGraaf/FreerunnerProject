@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -10,16 +11,9 @@ public class TimeAndScoreHandler : MonoBehaviour
     public Text InputField;
     public Text timerLabel;
     public Text scoreLabel;
-    public Text First;
-    public Text Second;
-    public Text Thirth;
-    public Text Fourth;
-    public Text Fifth;
-    public Text FirstName;
-    public Text SecondName;
-    public Text ThirthName;
-    public Text FourthName;
-    public Text FifthName;
+
+    public Text[] Scores = new Text[5];
+    public Text[] Names = new Text[5];
 
     private float time = 0;
     private float previousTime = 0;
@@ -53,7 +47,7 @@ public class TimeAndScoreHandler : MonoBehaviour
     }
     public void StopButtonPressed()
     {
-        if(totalScore > int.Parse(Fifth.text))
+        if(totalScore > int.Parse(Scores[4].text))
         {
             addScore();
         }
@@ -79,60 +73,19 @@ public class TimeAndScoreHandler : MonoBehaviour
     public void enterName()
     {
         string inputName = InputField.text;
-        if (int.Parse(First.text) == 0 || totalScore > int.Parse(First.text))
+        for (int i = 0; i < Scores.Length; i++)
         {
-            int oldScore = int.Parse(First.text);
-            string oldName = FirstName.text;
+            if (int.Parse(Scores[i].text) == 0 || totalScore > int.Parse(Scores[i].text))
+            {
+                int oldScore = int.Parse(Scores[i].text);
+                string oldName = Names[i].text;
 
-            First.text = totalScore.ToString();
-            FirstName.text = inputName;
-            
-            totalScore = oldScore;
-            inputName = oldName;
-        }
-        if (int.Parse(Second.text) == 0 || totalScore > int.Parse(Second.text))
-        {
-            int oldScore = int.Parse(Second.text);
-            string oldName = SecondName.text;
+                Scores[i].text = totalScore.ToString();
+                Names[i].text = inputName;
 
-            Second.text = totalScore.ToString();
-            SecondName.text = inputName;
-
-            totalScore = oldScore;
-            inputName = oldName;
-        }
-        if (int.Parse(Thirth.text) == 0 || totalScore > int.Parse(Thirth.text))
-        {
-            int oldScore = int.Parse(Thirth.text);
-            string oldName = ThirthName.text;
-
-            Thirth.text = totalScore.ToString();
-            ThirthName.text = inputName;
-
-            totalScore = oldScore;
-            inputName = oldName;
-        }
-        if (int.Parse(Fourth.text) == 0 || totalScore > int.Parse(Fourth.text))
-        {
-            int oldScore = int.Parse(Fourth.text);
-            string oldName = FourthName.text;
-
-            Fourth.text = totalScore.ToString();
-            FourthName.text = inputName;
-
-            totalScore = oldScore;
-            inputName = oldName;
-        }
-        if (int.Parse(Fifth.text) == 0 || totalScore > int.Parse(Fifth.text))
-        {
-            int oldScore = int.Parse(Fifth.text);
-            string oldName = FifthName.text;
-
-            Fifth.text = totalScore.ToString();
-            FifthName.text = inputName;
-
-            totalScore = oldScore;
-            inputName = oldName;
+                totalScore = oldScore;
+                inputName = oldName;
+            }
         }
 
         time = 0;
