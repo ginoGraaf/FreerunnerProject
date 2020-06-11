@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
             }
            ChaseLights[_lightToAdd].SetState(ChaseLight.state.DANGER);
         }
+
     }
 
     private void MoveDangerZone()
@@ -64,6 +65,13 @@ public class GameController : MonoBehaviour
             firstDangerPoint = 0;
         }
         ChaseLights[firstDangerPoint].SetState(ChaseLight.state.DANGER);
+
+        int _blinkLight = firstDangerPoint + 1;
+        if (_blinkLight == ChaseLights.Length)
+        {
+            _blinkLight = firstDangerPoint - ChaseLights.Length + 1;
+        }
+        ChaseLights[_blinkLight].SetState(ChaseLight.state.BLINK);
     }
 
     private void Timer()

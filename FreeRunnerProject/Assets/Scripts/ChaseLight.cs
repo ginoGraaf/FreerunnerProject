@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChaseLight : MonoBehaviour
 {
     [SerializeField] private GameObject Lamp;
-    [HideInInspector] public enum state {ON,OFF,DANGER };
+    [HideInInspector] public enum state {ON,OFF,DANGER, BLINK};
     state lightState = state.OFF;
     private Material lampMaterial;
 
@@ -29,6 +29,9 @@ public class ChaseLight : MonoBehaviour
                 break;
             case state.ON: // lamp NOT in danger zone
                 lampMaterial.color = Color.green;
+                break;
+            case state.BLINK: // lamp goes to danger zone in any moment
+                lampMaterial.color = Color.yellow;
                 break;
             default:
                 Debug.Log("unknown error occured");
