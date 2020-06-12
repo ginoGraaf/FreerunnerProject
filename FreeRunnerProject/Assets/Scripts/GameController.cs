@@ -53,8 +53,8 @@ public class GameController : MonoBehaviour
             if (_blinkLight >= ChaseLights.Length)
             {
                 _blinkLight = _blinkLight - ChaseLights.Length;
-                ChaseLights[_blinkLight].SetState(ChaseLight.state.BLINK);
             }
+            ChaseLights[_blinkLight].SetState(ChaseLight.state.BLINK);
         }
     }
 
@@ -81,7 +81,6 @@ public class GameController : MonoBehaviour
         {
             _blinkLight = _blinkLight - ChaseLights.Length;
         }
-        Debug.Log(_blinkLight);
         ChaseLights[_blinkLight].SetState(ChaseLight.state.BLINK);
     }
 
@@ -91,7 +90,6 @@ public class GameController : MonoBehaviour
         if (timeLeft < 0)
         {
             MoveDangerZone();
-            Debug.Log("move");
             timeLeft = interval;
             interval = interval * IntervalFactor;
         }
