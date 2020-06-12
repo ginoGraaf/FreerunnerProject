@@ -42,7 +42,7 @@ public class ChaseLight : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag=="Player")
         {
@@ -53,6 +53,7 @@ public class ChaseLight : MonoBehaviour
                     //trigger here the timer stop.
                     Time.timeScale = 0;
                     break;
+                   
             }
         }
     }
