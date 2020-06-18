@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [Header("Danger zone")]
     [SerializeField] private int firstDangerPoint = 11;
     [SerializeField] private int dangerZoneLength = 5;
+    [SerializeField] private int blinkZoneLength = 3;
 
     [Header("Interval")]
     [SerializeField] private float startInterval = 3.0f;
@@ -45,6 +46,16 @@ public class GameController : MonoBehaviour
             }
            ChaseLights[_lightToAdd].SetState(ChaseLight.state.DANGER);
         }
+        for (int _i = 0; _i < blinkZoneLength; _i++)
+        {
+            int _blinkLight = firstDangerPoint + _i + 1;
+
+            if (_blinkLight >= ChaseLights.Length)
+            {
+                _blinkLight = _blinkLight - ChaseLights.Length;
+            }
+            ChaseLights[_blinkLight].SetState(ChaseLight.state.BLINK);
+        }
     }
 
     private void MoveDangerZone()
@@ -64,6 +75,13 @@ public class GameController : MonoBehaviour
             firstDangerPoint = 0;
         }
         ChaseLights[firstDangerPoint].SetState(ChaseLight.state.DANGER);
+
+        int _blinkLight = firstDangerPoint + blinkZoneLength;
+        if (_blinkLight >= ChaseLights.Length)
+        {
+            _blinkLight = _blinkLight - ChaseLights.Length;
+        }
+        ChaseLights[_blinkLight].SetState(ChaseLight.state.BLINK);
     }
 
     private void Timer()
@@ -72,7 +90,6 @@ public class GameController : MonoBehaviour
         if (timeLeft < 0)
         {
             MoveDangerZone();
-            Debug.Log("move");
             timeLeft = interval;
             interval = interval * IntervalFactor;
         }
