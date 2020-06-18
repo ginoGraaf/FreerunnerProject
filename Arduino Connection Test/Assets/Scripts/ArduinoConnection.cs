@@ -7,26 +7,18 @@ using System;
 public class ArduinoConnection : MonoBehaviour
 {
     public int NumberOfNodes;
-    public int ComPort;
     public bool[] ButtonStatus { get; private set; }
     public char[] LightStatus { get; private set; }
+    public bool Connected { get; private set; } = false;
 
+    private int ComPort;
     private SerialPort Arduino;
     private string SerialText = "";
-    private readonly char[] delimitors = { '#', '%', '\n' };
+    private readonly char[] delimiters = { '#', '%', '\n' };
 
     // Connect to the serial port, setup the arrays at the proper lengths
     void Start()
     {
-        // Setup the Arduino connection
-        Arduino = new SerialPort("COM" + ComPort.ToString(), 9600);
-        Arduino.Open();
-        Arduino.ReadTimeout = 1;
-        if (Arduino.IsOpen)
-        {
-            Arduino.DiscardInBuffer();
-            Arduino.DiscardOutBuffer();
-        }
 
         // Setup the Light array
         LightStatus = new char[NumberOfNodes];
@@ -49,17 +41,118 @@ public class ArduinoConnection : MonoBehaviour
         ReadSerialData();
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        Arduino.Close();
+    }
+
+    public void Connect()
+    {
+        StopCoroutine(FindDevice());
+        StartCoroutine(FindDevice());
+    }
+    public bool Connect(int comPort)
+    {
+        if(SetComPort(comPort))
+        {
+            Connected = true;
+            return true;
+        }
+        return false;
+    }
+
+    public bool SetComPort(int comPort)
+    {
+        ComPort = comPort;
+        Debug.Log(ComPort);
+        Arduino = new SerialPort("COM" + comPort.ToString(), 9600);
+        try
+        {
+            Arduino.Open();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Exception: " + e);
+            return false;
+        }
+        Arduino.ReadTimeout = 1;
+        if (Arduino.IsOpen)
+        {
+            Arduino.DiscardInBuffer();
+            Arduino.DiscardOutBuffer();
+        }
+        return true;
+    }
+
+    IEnumerator FindDevice()
+    {
+        string[] ports = SerialPort.GetPortNames();
+        foreach (string port in ports)
+        {
+            SetComPort(int.Parse(port.Substring(3)));
+            try
+            {
+                Arduino.Write("#REQ%");
+                Arduino.BaseStream.Flush();
+            }
+            catch (InvalidOperationException)
+            {
+                //Serial port is not open, do nothing
+            }
+
+            yield return new WaitForSeconds(1.0f); // Give arduino time to receive and transmit
+            
+            if (Arduino.BytesToRead > 2)
+            {
+                try
+                {
+                    SerialText = Arduino.ReadLine();
+                    Debug.Log(SerialText);
+                    if (SplitSerial(SerialText) == "ACK")
+                    {
+                        Connected = true;
+                        Debug.Log("CONNECTED");
+                        StopCoroutine(FindDevice());
+                    }
+                }
+                catch (TimeoutException)
+                {
+
+                }
+                catch (InvalidOperationException)
+                {
+
+                }
+            }
+        }
+    }
+
     // Send data to the arduino
     void SendToArduino()
     {
-        string tempToArduino = "";
-        for(int i = 0; i < NumberOfNodes; i++)
+        if(Connected)
         {
-            tempToArduino += LightStatus[i];
+            string tempToArduino = "";
+            for (int i = 0; i < NumberOfNodes; i++)
+            {
+                tempToArduino += LightStatus[i];
+            }
+
+            try
+            {
+                Arduino.Write("#" + tempToArduino + "%");
+                Arduino.BaseStream.Flush();
+            }
+            catch(Exception)
+            {
+                Connected = false;
+                Debug.Log("DISCONNECTED");
+                StartCoroutine(FindDevice());
+            }
+
+            Debug.Log("#" + tempToArduino + "%");
         }
-        Arduino.Write("#" + tempToArduino +"%");
-        Arduino.BaseStream.Flush();
-        Debug.Log("#" + tempToArduino + "%");
     }
 
     // Set specific light to a color
@@ -76,18 +169,18 @@ public class ArduinoConnection : MonoBehaviour
     // Reads serial data from the serial port if there is data available
     void ReadSerialData()
     {
-        if (Arduino.BytesToRead > 2)
+        if (Arduino.BytesToRead > 2 && Connected)
         {
             try
             {
                 SerialText = Arduino.ReadLine();
-                int ButtonNumberPressed = SplitSerial(SerialText);
+                int ButtonNumberPressed = int.Parse(SplitSerial(SerialText));
                 for(int i = 0; i < NumberOfNodes; i++)
                 {
                     if(i == ButtonNumberPressed)
                     {
                         ButtonStatus[i] = true;
-                        Debug.Log(i);
+                        Debug.Log(i + "BUTTON PRESSED");
                     }
                     else
                     {
@@ -100,16 +193,16 @@ public class ArduinoConnection : MonoBehaviour
     }
 
     // Splits the string into a number of the button which was pressed
-    int SplitSerial(string SerialText)
+    string SplitSerial(string SerialText)
     {
-        string[] split = SerialText.Split(delimitors);
+        string[] split = SerialText.Split(delimiters);
         for (int i = 0; i < split.Length; i++)
         {
             if (split[i].Length > 0)
             {
-                return int.Parse(split[i]);
+                return split[i];
             }
         }
-        return -1;
+        return "";
     }
 }

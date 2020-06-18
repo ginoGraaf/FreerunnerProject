@@ -308,8 +308,8 @@ GameObject:
   - component: {fileID: 1435256345}
   - component: {fileID: 1435256344}
   - component: {fileID: 1435256343}
-  - component: {fileID: 1435256342}
   - component: {fileID: 1435256347}
+  - component: {fileID: 1435256342}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -329,8 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c531199504fa4464b872940159c31dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumberOfNodes: 5
-  ComPort: 9
+  NumberOfNodes: 0
 --- !u!65 &1435256343
 BoxCollider:
   m_ObjectHideFlags: 0
