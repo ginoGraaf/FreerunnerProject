@@ -497,6 +497,7 @@ MonoBehaviour:
   - {fileID: 1959486861}
   firstDangerPoint: 9
   dangerZoneLength: 5
+  blinkZoneLength: 3
   startInterval: 3
   IntervalFactor: 0.97
   interval: 0
@@ -764,26 +765,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787127523575172655, guid: 3bdda821e240b6546ad7197eefaa1dcc,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 2.0992193
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787127523575172655, guid: 3bdda821e240b6546ad7197eefaa1dcc,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 1.1744537
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787127523575172655, guid: 3bdda821e240b6546ad7197eefaa1dcc,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 1.1804547
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787127523575172655, guid: 3bdda821e240b6546ad7197eefaa1dcc,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 0.9084077
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdda821e240b6546ad7197eefaa1dcc, type: 3}
