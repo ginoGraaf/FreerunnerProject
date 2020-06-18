@@ -72,7 +72,7 @@ public class ArduinoConnection : MonoBehaviour
         }
         catch(InvalidOperationException)
         {
-            Debug.Log("InvalidOperationException: ");
+            //Debug.Log("InvalidOperationException: ");
         }
 
         //ReadSerialData();
