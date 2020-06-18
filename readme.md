@@ -24,8 +24,12 @@ The goal of the game is to stay alive as long as possible while a red light is f
 ### Unity
 To install this project go to [unity.com](https://unity3d.com/get-unity/download) and download Unity. Make sure you use version ``2019.3.15f1`` since this is the version used for this project. If you use another version of Unity errors may occure. 
 
-### Arduino
-... _Moet hier een aparte installatie voor komen? zo ja, ff iemand die dr verstand van heeft hier omschrijven hoe da dan moet_
+### Arduino IDE & ESP Boards
+In order to flash the ESP boards, you have to download and install the [Arduino ide](https://www.arduino.cc/en/main/software).
+Next open the Arduino IDEand navigate to File -> Preferences and copy this link "https://dl.espressif.com/dl/package_esp32_index.json" to "Additional Board Managers".
+Now go to Tools -> Board -> Board Manager and type in ESP32, click the install button.
+There should now be a list of ESP boards under Tools->Board, select the appropriate one to flash your firmware.
+Open the code to the module you want to flash and press the upload button.
 
 ## Developers
 _alphabetical order:_
@@ -33,7 +37,7 @@ _alphabetical order:_
 - Daan Knippenberg - ff taken invullen | [titel website](https://example.com)
 - Gino van Graaf - Unity Developer, Tech dude & concepting | [titel website](https://example.com)
 - Niek van de Vondervoort - Design and concepting & Unity Developer | [niekvandevondervoort.com](https://niekvandevondervoort.com/)
-- Pim van der Vliet - ff taken invullen | [titel website](https://example.com)
+- Pim van der Vliet - Unity & Hardware Developer & Concepting | [titel website](https://example.com)
 - Stefan Hobeijn - ff taken invullen | [titel website](https://example.com)
 
 
