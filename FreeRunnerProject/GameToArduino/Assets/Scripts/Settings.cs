@@ -7,10 +7,11 @@ using System.IO;
 public class Settings : ScriptableObject
 {
     private string SavePath;
-    // Start is called before the first frame update
     public string language;
     public string COMPort;
     public string numberOfNodes;
+
+    public bool autoSelect;
 
     public void OnEnable()
     {

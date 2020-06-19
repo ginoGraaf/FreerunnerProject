@@ -807,7 +807,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1788217257}
+      - m_Target: {fileID: 0}
         m_MethodName: UpdateComPort
         m_Mode: 3
         m_Arguments:
@@ -4227,11 +4227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12351c1662bdeab4b984686bd5c2d501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings:
-    language: 
-    COMPort: 
-    numberOfNodes: 
-    autoSelect: 0
+  settings: {fileID: 11400000, guid: 37632e82009b3824baa1abc85a474b3c, type: 2}
   language: {fileID: 1730188613}
   COMPort: {fileID: 282434862}
   numberOfNodes: {fileID: 1087688527}
@@ -4382,7 +4378,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1788217255}
   - component: {fileID: 1788217256}
-  - component: {fileID: 1788217257}
   m_Layer: 5
   m_Name: DifficultyMenu
   m_TagString: Untagged
@@ -4427,22 +4422,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   test: {fileID: 0}
---- !u!114 &1788217257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788217254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ef5847447296d341b7027f544339695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropdownCom: {fileID: 282434862}
-  dropdownNumberOfNodes: {fileID: 1087688527}
-  NumberOfNodes: 0
-  ComPort: 0
 --- !u!1 &1799826557
 GameObject:
   m_ObjectHideFlags: 0
