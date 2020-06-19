@@ -11,6 +11,7 @@ public class TimeAndScoreHandler : MonoBehaviour
     public Text InputField;
     public Text timerLabel;
     public Text scoreLabel;
+    public Text Difficulty;
 
     public Text[] Scores = new Text[5];
     public Text[] Names = new Text[5];
@@ -21,6 +22,7 @@ public class TimeAndScoreHandler : MonoBehaviour
     private int bonus = 0;
     private int totalScore = 0;
     private bool start = false;
+    private int difficultyDivider = 0;
 
     void Update()
     {
@@ -32,7 +34,7 @@ public class TimeAndScoreHandler : MonoBehaviour
             var seconds = time % 60;
             var fraction = (time * 100) % 100;
 
-            score += (int)((minutes + seconds + fraction ) / 10);
+            score += (int)((minutes + seconds + fraction ) / difficultyDivider);
 
             timerLabel.text = string.Format("{0:00} : {1:00} : {2:000}", minutes, seconds, fraction);
             totalScore = score + bonus;
@@ -43,6 +45,18 @@ public class TimeAndScoreHandler : MonoBehaviour
 
     public void StartButtonPressed()
     {
+        if (Difficulty.text == "Normal")
+        {
+            difficultyDivider = 10;
+        }
+        else if (Difficulty.text == "Hard")
+        {
+            difficultyDivider = 5;
+        }
+        else if (Difficulty.text == "Very Hard")
+        {
+            difficultyDivider = 1;
+        }
         start = true;
     }
     public void StopButtonPressed()
