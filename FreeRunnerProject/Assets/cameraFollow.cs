@@ -10,12 +10,6 @@ public class cameraFollow : MonoBehaviour
     [SerializeField]
     float speed;
     int index = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -51,6 +45,7 @@ public class cameraFollow : MonoBehaviour
 
         transform.position = Vector3.Slerp(transform.position, Pivot, Time.deltaTime * speed);
     }
+
 }
 [System.Serializable]
 public class CamPoints

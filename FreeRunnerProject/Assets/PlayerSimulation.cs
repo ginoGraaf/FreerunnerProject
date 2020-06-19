@@ -14,7 +14,7 @@ public class PlayerSimulation : MonoBehaviour
     [SerializeField]
     bool Automatic;
     [SerializeField]
-    Transform PlayerTransform;
+    Transform PlayerTransform,playerCapsule;
     [SerializeField]
     Rigidbody rig;
     void Start()
@@ -55,6 +55,9 @@ public class PlayerSimulation : MonoBehaviour
             if (LastPoint())
             {
                 currentPoint = points[nextPoint];
+
+                playerCapsule.transform.LookAt(currentPoint);
+                playerCapsule.transform.Translate(Vector3.right * Time.deltaTime);
             }
         }
     }
