@@ -10,7 +10,7 @@ public class ChaseLight : MonoBehaviour
     state lightState = state.OFF;
     private Material lampMaterial;
     private Animator lampAnimator;
-
+    float timeleft = 0.8f;
     void Awake()
     {
         lampMaterial = Lamp.GetComponent<Renderer>().material;
@@ -42,6 +42,15 @@ public class ChaseLight : MonoBehaviour
         }
     }
 
+    private void StandStillTrigger()
+    {
+        timeleft -= Time.deltaTime;
+        if (timeleft<=0)
+        {
+            Time.timeScale = 0;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag=="Player")
@@ -51,7 +60,7 @@ public class ChaseLight : MonoBehaviour
                 case state.DANGER:
                     Debug.Log("EndGame");
                     //trigger here the timer stop.
-                    Time.timeScale = 0;
+                    StandStillTrigger();
                     break;
                    
             }
