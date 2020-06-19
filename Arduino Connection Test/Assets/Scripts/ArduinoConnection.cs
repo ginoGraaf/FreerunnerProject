@@ -15,11 +15,15 @@ public class ArduinoConnection : MonoBehaviour
     private SerialPort Arduino;
     private string SerialText = "";
     private readonly char[] delimiters = { '#', '%', '\n' };
+    private IEnumerator deviceFinder;
+
+    private char[] array = new char[5];
 
     // Connect to the serial port, setup the arrays at the proper lengths
     void Start()
     {
-
+        deviceFinder = FindDevice();
+        Connect();
         // Setup the Light array
         LightStatus = new char[NumberOfNodes];
         for(int i = 0; i < NumberOfNodes; i++)
@@ -49,8 +53,8 @@ public class ArduinoConnection : MonoBehaviour
 
     public void Connect()
     {
-        StopCoroutine(FindDevice());
-        StartCoroutine(FindDevice());
+        StopCoroutine(deviceFinder);
+        StartCoroutine(deviceFinder);
     }
     public bool Connect(int comPort)
     {
@@ -62,7 +66,7 @@ public class ArduinoConnection : MonoBehaviour
         return false;
     }
 
-    public bool SetComPort(int comPort)
+    private bool SetComPort(int comPort)
     {
         ComPort = comPort;
         Debug.Log(ComPort);
@@ -102,27 +106,28 @@ public class ArduinoConnection : MonoBehaviour
             }
 
             yield return new WaitForSeconds(1.0f); // Give arduino time to receive and transmit
-            
+
             if (Arduino.BytesToRead > 2)
             {
                 try
                 {
                     SerialText = Arduino.ReadLine();
-                    Debug.Log(SerialText);
+                    
                     if (SplitSerial(SerialText) == "ACK")
                     {
                         Connected = true;
                         Debug.Log("CONNECTED");
-                        StopCoroutine(FindDevice());
+                        StopCoroutine(deviceFinder);
+                        break;
                     }
                 }
                 catch (TimeoutException)
                 {
-
+                    Debug.Log("TIMEOUT");
                 }
                 catch (InvalidOperationException)
                 {
-
+                    
                 }
             }
         }
@@ -148,7 +153,7 @@ public class ArduinoConnection : MonoBehaviour
             {
                 Connected = false;
                 Debug.Log("DISCONNECTED");
-                StartCoroutine(FindDevice());
+                StartCoroutine(deviceFinder);
             }
 
             Debug.Log("#" + tempToArduino + "%");
@@ -169,26 +174,29 @@ public class ArduinoConnection : MonoBehaviour
     // Reads serial data from the serial port if there is data available
     void ReadSerialData()
     {
-        if (Arduino.BytesToRead > 2 && Connected)
+        if(Connected)
         {
-            try
+            if (Arduino.BytesToRead > 2)
             {
-                SerialText = Arduino.ReadLine();
-                int ButtonNumberPressed = int.Parse(SplitSerial(SerialText));
-                for(int i = 0; i < NumberOfNodes; i++)
+                try
                 {
-                    if(i == ButtonNumberPressed)
+                    SerialText = Arduino.ReadLine();
+                    int ButtonNumberPressed = int.Parse(SplitSerial(SerialText));
+                    for (int i = 0; i < NumberOfNodes; i++)
                     {
-                        ButtonStatus[i] = true;
-                        Debug.Log(i + "BUTTON PRESSED");
-                    }
-                    else
-                    {
-                        ButtonStatus[i] = false;
+                        if (i == ButtonNumberPressed)
+                        {
+                            ButtonStatus[i] = true;
+                            Debug.Log(i + "BUTTON PRESSED");
+                        }
+                        else
+                        {
+                            ButtonStatus[i] = false;
+                        }
                     }
                 }
+                catch (TimeoutException) { }
             }
-            catch (TimeoutException) { }
         }
     }
 
