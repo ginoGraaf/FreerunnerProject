@@ -543,6 +543,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1780231627}
+        m_MethodName: StopGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &215003788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,6 +1978,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1780231625}
         m_MethodName: StartButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1780231627}
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4798,6 +4820,8 @@ GameObject:
   - component: {fileID: 1780231621}
   - component: {fileID: 1780231625}
   - component: {fileID: 1780231626}
+  - component: {fileID: 1780231628}
+  - component: {fileID: 1780231627}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4927,6 +4951,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   test1: {fileID: 1403964127}
+--- !u!114 &1780231627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780231620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1627eb41dd82c6f4292585bac37f4193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameStopped:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1780231625}
+        m_MethodName: StopButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  settings: {fileID: 11400000, guid: 37632e82009b3824baa1abc85a474b3c, type: 2}
+  gameActive: 0
+  ChaseLights: 000000000000000000000000
+  firstDangerPoint: 0
+  dangerZoneLength: 1
+  blinkZoneLength: 1
+  _blinkLight: 0
+  startInterval: 4
+  IntervalFactor: 0.97
+  interval: 3
+  timeLeft: 0
+--- !u!114 &1780231628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780231620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a26b4b100e9594489b1626f51a7c1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfNodes: 0
 --- !u!1 &1788125644
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,57 +7,39 @@ using UnityEngine.UI;
 public class SaveLoadSettings : MonoBehaviour
 {
     string path;
-    [SerializeField] private Settings settings;
+    public Settings settings;
     public Dropdown language;
     public Dropdown COMPort;
     public Dropdown numberOfNodes;
 
     void Start()
     {
-        path = Application.dataPath + "/Data/settings.json";
-        Debug.Log(path);
-        settings = new Settings();
-        GetSettings(path);
+        settings.RestoreFromDisc();
+        GetSettings();
     }
 
     private void OnDisable()
     {
-        SaveSettings(path);
+        SaveSettings();
+        settings.StoreToDisc();
     }
 
-    public void SaveSettings(string path)
+    public void SaveSettings()
     {
         settings.language = language.captionText.text;
         settings.COMPort = COMPort.captionText.text;
         settings.numberOfNodes = numberOfNodes.captionText.text;
-
-        string settingsToSave = JsonUtility.ToJson(settings);
-        File.WriteAllText(path, settingsToSave);
     }
 
-    public void GetSettings(string path)
+    public void GetSettings()
     {
-        if (File.Exists(path))
-        {
-            string textFromFile = File.ReadAllText(path);
-            JsonUtility.FromJsonOverwrite(textFromFile, settings);
-
-            language.value = language.options.FindIndex(option => option.text == settings.language);
-            COMPort.value = COMPort.options.FindIndex(option => option.text == settings.COMPort);
-            numberOfNodes.value = numberOfNodes.options.FindIndex(option => option.text == settings.numberOfNodes);
-
-            language.RefreshShownValue();
-            COMPort.RefreshShownValue();
-            numberOfNodes.RefreshShownValue();
-        }
-    }
-
-    [System.Serializable]
-    public class Settings
-    {
-        public string language;
-        public string COMPort;
-        public string numberOfNodes;
+        language.value = language.options.FindIndex(option => option.text == settings.language);
+        COMPort.value = COMPort.options.FindIndex(option => option.text == settings.COMPort);
+        numberOfNodes.value = numberOfNodes.options.FindIndex(option => option.text == settings.numberOfNodes);
+        
+        language.RefreshShownValue();
+        COMPort.RefreshShownValue();
+        numberOfNodes.RefreshShownValue();
     }
 }
 
