@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SaveLoadSettings : MonoBehaviour
 {
-    string path = "D:/school/semester 4/Game Design/proftaak/settings.json";
+    string path;
     [SerializeField] private Settings settings;
     public Dropdown language;
     public Dropdown COMPort;
@@ -14,6 +14,8 @@ public class SaveLoadSettings : MonoBehaviour
 
     void Start()
     {
+        path = Application.dataPath + "/Data/settings.json";
+        Debug.Log(path);
         settings = new Settings();
         GetSettings(path);
     }

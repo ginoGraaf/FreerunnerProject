@@ -57,7 +57,16 @@ public class TimeAndScoreHandler : MonoBehaviour
         {
             difficultyDivider = 1;
         }
+
+        time = 0;
+        score = 0;
+        bonus = 0;
+        totalScore = 0;
+
+        timerLabel.text = string.Format("{0:00} : {0:00} : {0:000}", 0, 0, 0);
+        scoreLabel.text = totalScore.ToString();
         start = true;
+
     }
     public void StopButtonPressed()
     {
@@ -65,7 +74,6 @@ public class TimeAndScoreHandler : MonoBehaviour
         {
             addScore();
         }
-        
         start = false;
     }
 

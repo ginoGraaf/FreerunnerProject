@@ -11,11 +11,11 @@ public class SaveLoadSettings : MonoBehaviour
     public Dropdown language;
     public Dropdown COMPort;
     public Dropdown numberOfNodes;
+    public Toggle autoSelect;
 
     void Start()
     {
         path = Application.dataPath + "/Data/settings.json";
-        Debug.Log(path);
         settings = new Settings();
         GetSettings(path);
     }
@@ -30,6 +30,7 @@ public class SaveLoadSettings : MonoBehaviour
         settings.language = language.captionText.text;
         settings.COMPort = COMPort.captionText.text;
         settings.numberOfNodes = numberOfNodes.captionText.text;
+        settings.autoSelect = autoSelect.isOn;
 
         string settingsToSave = JsonUtility.ToJson(settings);
         File.WriteAllText(path, settingsToSave);
@@ -45,12 +46,18 @@ public class SaveLoadSettings : MonoBehaviour
             language.value = language.options.FindIndex(option => option.text == settings.language);
             COMPort.value = COMPort.options.FindIndex(option => option.text == settings.COMPort);
             numberOfNodes.value = numberOfNodes.options.FindIndex(option => option.text == settings.numberOfNodes);
+            autoSelect.isOn = settings.autoSelect;
 
             language.RefreshShownValue();
             COMPort.RefreshShownValue();
             numberOfNodes.RefreshShownValue();
+            if (autoSelect.isOn)
+            {
+                COMPort.interactable = false;
+            }
         }
     }
+
 
     [System.Serializable]
     public class Settings
@@ -58,6 +65,7 @@ public class SaveLoadSettings : MonoBehaviour
         public string language;
         public string COMPort;
         public string numberOfNodes;
+        public bool autoSelect;
     }
 }
 

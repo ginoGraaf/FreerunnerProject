@@ -7,39 +7,65 @@ using UnityEngine.UI;
 public class SaveLoadSettings : MonoBehaviour
 {
     string path;
-    public Settings settings;
+    [SerializeField] private Settings settings;
     public Dropdown language;
     public Dropdown COMPort;
     public Dropdown numberOfNodes;
+    public Toggle autoSelect;
 
     void Start()
     {
-        settings.RestoreFromDisc();
-        GetSettings();
+        path = Application.dataPath + "/Data/settings.json";
+        settings = new Settings();
+        GetSettings(path);
     }
 
     private void OnDisable()
     {
-        SaveSettings();
-        settings.StoreToDisc();
+        SaveSettings(path);
     }
 
-    public void SaveSettings()
+    public void SaveSettings(string path)
     {
         settings.language = language.captionText.text;
         settings.COMPort = COMPort.captionText.text;
         settings.numberOfNodes = numberOfNodes.captionText.text;
+        settings.autoSelect = autoSelect.isOn;
+
+        string settingsToSave = JsonUtility.ToJson(settings);
+        File.WriteAllText(path, settingsToSave);
     }
 
-    public void GetSettings()
+    public void GetSettings(string path)
     {
-        language.value = language.options.FindIndex(option => option.text == settings.language);
-        COMPort.value = COMPort.options.FindIndex(option => option.text == settings.COMPort);
-        numberOfNodes.value = numberOfNodes.options.FindIndex(option => option.text == settings.numberOfNodes);
-        
-        language.RefreshShownValue();
-        COMPort.RefreshShownValue();
-        numberOfNodes.RefreshShownValue();
+        if (File.Exists(path))
+        {
+            string textFromFile = File.ReadAllText(path);
+            JsonUtility.FromJsonOverwrite(textFromFile, settings);
+
+            language.value = language.options.FindIndex(option => option.text == settings.language);
+            COMPort.value = COMPort.options.FindIndex(option => option.text == settings.COMPort);
+            numberOfNodes.value = numberOfNodes.options.FindIndex(option => option.text == settings.numberOfNodes);
+            autoSelect.isOn = settings.autoSelect;
+
+            language.RefreshShownValue();
+            COMPort.RefreshShownValue();
+            numberOfNodes.RefreshShownValue();
+            if (autoSelect.isOn)
+            {
+                COMPort.interactable = false;
+            }
+        }
+    }
+
+
+    [System.Serializable]
+    public class Settings
+    {
+        public string language;
+        public string COMPort;
+        public string numberOfNodes;
+        public bool autoSelect;
     }
 }
 

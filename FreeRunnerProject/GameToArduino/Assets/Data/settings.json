@@ -1,5 +1,1 @@
-{
-    "language": "Nederlands",
-    "COMPort": "7",
-    "numberOfNodes": "3"
-}
+{"language":"Nederlands","COMPort":"5","numberOfNodes":"3","autoSelect":false}
