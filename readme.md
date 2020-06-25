@@ -33,7 +33,7 @@ Open the code to the module you want to flash and press the upload button.
 
 ## Developers
 _alphabetical order:_
-- Berend Pijnenburg - ff taken invullen | [titel website](https://example.com)
+- Berend Pijnenburg - Hardware Development and Implementation |
 - Daan Knippenberg - ff taken invullen | [titel website](https://example.com)
 - Gino van Graaf - Unity Developer, Tech dude & concepting | [titel website](https://example.com)
 - Niek van de Vondervoort - Design and concepting & Unity Developer | [niekvandevondervoort.com](https://niekvandevondervoort.com/)
