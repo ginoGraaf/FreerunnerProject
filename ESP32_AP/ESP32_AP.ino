@@ -9,6 +9,13 @@
 const char *ssid = "ESP AP";
 const char *password = "yourPassword";
 
+//The udp library class
+WiFiUDP udp;
+char packetBuffer[50]; //buffer to hold incoming packet,
+
+IPAddress broadcastAddress(192, 168, 4, 255);
+const int udpPort = 8888;
+
 typedef struct Nodes {
   IPAddress ipAddress;
   char ledStatus = '0';
@@ -21,21 +28,17 @@ IPAddress emptyIP;
 Node nodes[8];
 char newLedStatus[8];
 
-int connectedNodes = 1;
+int connectedNodes = 1; // starts at 1 if this node is being used as a node else start at 0
 
+//variables neccesary for this to also be used as a node
 int LED_RED = 2; //is also internal led for testing
 int LED_GREEN = 4;
 int LED_BLUE = 16;
 
 int BUTTON_PIN = 22;
 int lastButtonState = HIGH;
+//////////////////////////////////////////////////////////
 
-//The udp library class
-WiFiUDP udp;
-char packetBuffer[50]; //buffer to hold incoming packet,
-
-IPAddress broadcastAddress(192, 168, 4, 255);
-const int udpPort = 8888;
 
 unsigned long previousMillis = 0;        // will store last time the network was pinged
 
@@ -83,9 +86,9 @@ void AddNode(IPAddress ip)
 
 void UpdateNodes()
 {
-  nodes[0].ledStatus = newLedStatus[0];
-  ControlLed();
-  for (int i = 1; i < 5; i++)
+  nodes[0].ledStatus = newLedStatus[0]; // if this is a node
+  ControlLed(); // if this is a node
+  for (int i = 1; i < 5; i++) // change i to 0 if this is not a node
   {
     if (nodes[i].ipAddress != emptyIP && nodes[i].ledStatus != newLedStatus[i])
     {
@@ -164,7 +167,7 @@ void SendInfo()
   }
 }
 
-bool PlayerDetected()
+bool PlayerDetected() // if this is a node
 {
   bool detected = false;
   if (digitalRead(BUTTON_PIN) == HIGH && lastButtonState == LOW)
@@ -175,7 +178,7 @@ bool PlayerDetected()
   return detected;
 }
 
-void ControlLed()
+void ControlLed() // if this is a node
 {
   if (nodes[0].ledStatus == '0')
   {
@@ -209,10 +212,13 @@ void setup() {
   Serial.begin(9600);
   WiFi.softAP(ssid, password);
   Serial.println(WiFi.softAPIP());
+
+  // if this is a node
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
   pinMode(LED_BLUE, OUTPUT);
   pinMode(BUTTON_PIN, INPUT);
+  ////////////////////////////
 }
 
 
@@ -235,7 +241,7 @@ void loop() {
 
 
 
-  if (PlayerDetected())
+  if (PlayerDetected()) // if this is a node
   {
     SetPlayerLocation(0);
   }
