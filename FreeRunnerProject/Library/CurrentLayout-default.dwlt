@@ -114,7 +114,7 @@ MonoBehaviour:
   m_MinSize: {x: 881, y: 492}
   m_MaxSize: {x: 16006, y: 14042}
   vertical: 0
-  controlID: 1100
+  controlID: 339
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 881, y: 492}
   m_MaxSize: {x: 16006, y: 14042}
   vertical: 1
-  controlID: 1101
+  controlID: 340
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 881, y: 221}
   m_MaxSize: {x: 16006, y: 4021}
   vertical: 0
-  controlID: 1102
+  controlID: 341
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -423,7 +423,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 42e9ffff62e9ffff04eaffff66f4ffff6afbffff92340000
+      m_ExpandedIDs: 6afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -663,7 +663,7 @@ MonoBehaviour:
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 238
+  m_LastVerticalScrollValue: 0
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -714,9 +714,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 42}
-    m_SelectedIDs: fc360000
-    m_LastClickedID: 14076
-    m_ExpandedIDs: 00000000fc360000fe36000000ca9a3b
+    m_SelectedIDs: 16370000
+    m_LastClickedID: 14102
+    m_ExpandedIDs: 00000000163700001837000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -744,7 +744,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fc360000fe36000000ca9a3b
+    m_ExpandedIDs: 00000000163700001837000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
